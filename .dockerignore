@@ -1,0 +1,6 @@
+.git
+/asiayo-pretest/vendor
+/asiayo-pretest/storage/framework/cache/**
+/asiayo-pretest/storage/framework/sessions/**
+/asiayo-pretest/storage/framework/views/**
+/asiayo-pretest/storage/logs/**

@@ -1,0 +1,33 @@
+# docker-compose.yml
+version: "3"
+
+networks:
+  server:
+
+services:
+  nginx:
+    container_name: docker_env_nginx
+    build:
+      context: ./
+      dockerfile: ./docker/nginx/Dockerfile
+    networks:
+      - server
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx/ssl/:/ssl/
+
+    restart: always
+
+  php:
+    container_name: docker_env_php
+    build:
+      context: ./
+      dockerfile: docker/php/Dockerfile
+    expose:
+      - 9000
+    networks:
+      - server
+    restart: always
