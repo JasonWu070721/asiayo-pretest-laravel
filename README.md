@@ -16,10 +16,11 @@ This repository contains a PHP Laravel-based API for currency conversion.
 
 Before getting started, ensure you have the following installed:
 
-- PHP
-- Composer
-- Docker
-- Docker Compose
+- [PHP8.1 or higher](https://www.php.net/)
+- [php8.1-bcmath](https://www.php.net/)
+- [Composer](https://getcomposer.org/download/)
+- [Docker](https://docs.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
 ### Using 'php artisan serve'
 
@@ -54,7 +55,7 @@ Before getting started, ensure you have the following installed:
    php artisan serve
    ```
 
-The API will now be accessible at http://localhost:8000/convert?source=USD&target=JPY&amount=$1,525
+   The API will now be accessible at http://localhost:8000/convert?source=USD&target=JPY&amount=$1,525
 
 ### Using Docker Compose
 
@@ -68,7 +69,7 @@ The API will now be accessible at http://localhost:8000/convert?source=USD&targe
 2. Generate Nginx keys:
 
    ```sh
-   chmod +x ./gen_app_key.sh
+   chmod +x ./gen_nginx_key.sh
    ./gen_nginx_key.sh
    ```
 
@@ -78,7 +79,7 @@ The API will now be accessible at http://localhost:8000/convert?source=USD&targe
    docker-compose up --build
    ```
 
-The API will be accessible at http://localhost:3000/convert?source=USD&target=JPY&amount=$1,525
+   The API will be accessible at http://localhost:3000/convert?source=USD&target=JPY&amount=$1,525
 
 ## Usage
 
