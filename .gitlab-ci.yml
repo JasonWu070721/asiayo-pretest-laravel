@@ -1,0 +1,47 @@
+stages:
+  - push
+  # - aws_ssh
+  # - run
+
+# aws-ssh-login:
+#   stage: aws_ssh
+#   before_script:
+#     - echo $AWS_PRIVATE_KEY
+#     - cat $AWS_PRIVATE_KEY > private_key.pem
+#     - chmod 400 private_key.pem
+#   script:
+#     - scp -o StrictHostKeyChecking=no -i private_key.pem ./docker-compose.yml $AWS_USER@$AWS_SERVER:/home/ubuntu
+#     - scp -o StrictHostKeyChecking=no -i private_key.pem -r ./db_init $AWS_USER@$AWS_SERVER:/home/ubuntu/
+#     - ssh -o StrictHostKeyChecking=no -i private_key.pem $AWS_USER@$AWS_SERVER "
+#       ls -al;
+#       docker compose down;
+#       docker compose up -d --build;
+
+# run-main-process:
+#   stage: run
+#   tags:
+#     - aws
+#   before_script:
+#     - echo "before_script"
+#     - docker ps
+#   script:
+#     - echo "script"
+
+build-push-image:
+  image: docker
+
+  services:
+    - docker:dind
+
+  stage: push
+
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+  script:
+    - ls -al
+    - cd docker/php
+    - docker build -t $CI_REGISTRY_IMAGE:1.0.0-build$CI_PIPELINE_IID .
+    - docker tag $CI_REGISTRY_IMAGE:1.0.0-build$CI_PIPELINE_IID $CI_REGISTRY_IMAGE:latest
+    - docker images
+    - docker push $CI_REGISTRY_IMAGE:1.0.0-build$CI_PIPELINE_IID
+    - docker push $CI_REGISTRY_IMAGE:latest
