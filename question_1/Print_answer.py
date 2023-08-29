@@ -25,7 +25,7 @@ class Print_answer:
                 host='localhost',
                 port=3306,
                 user='root',
-                password='ETPHtDKnSSmE',
+                password='your_password',
                 database='AsiaYo',
                 charset='utf8'
             )
@@ -69,12 +69,10 @@ class Print_answer:
         try:
             while bnb_count < self.bnb_max:
                 bnbs_query = "INSERT INTO bnbs (name) VALUES (%s)"
-                self.cursor.execute(bnbs_query, (self.fake.name()))
-                # print(self.cursor.lastrowid)
+                self.cursor.execute(bnbs_query, (self.fake.company()))
                 logging.debug(f'INSERT bnbs id: {self.cursor.lastrowid}')
 
                 bnb_id = self.cursor.lastrowid
-
                 room_count = 0
                 room_max = random.randint(1, 5)
 
